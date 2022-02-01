@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y92-Y7-3gc">
+    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Word-->
+        <scene sceneID="cXg-MS-Ion">
+            <objects>
+                <viewController id="jMW-mM-pzK" customClass="WordViewController" customModule="AdvMadLab1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ldh-NB-HFa" userLabel="View">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBF-Iy-ZRD">
+                                <rect key="frame" x="241" y="99" width="414" height="216"/>
+                            </pickerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="J1c-fk-ius"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BBF-Iy-ZRD" firstAttribute="centerY" secondItem="Ldh-NB-HFa" secondAttribute="centerY" id="0fJ-IK-0Cj"/>
+                            <constraint firstItem="BBF-Iy-ZRD" firstAttribute="top" secondItem="J1c-fk-ius" secondAttribute="top" constant="99" id="1wp-Jl-8h8"/>
+                            <constraint firstItem="BBF-Iy-ZRD" firstAttribute="leading" secondItem="J1c-fk-ius" secondAttribute="leading" id="Isk-G8-BnY"/>
+                            <constraint firstItem="J1c-fk-ius" firstAttribute="bottom" secondItem="BBF-Iy-ZRD" secondAttribute="bottom" constant="284" id="XGF-ja-F64"/>
+                            <constraint firstItem="BBF-Iy-ZRD" firstAttribute="centerX" secondItem="Ldh-NB-HFa" secondAttribute="centerX" id="eNQ-Je-k4R"/>
+                            <constraint firstItem="BBF-Iy-ZRD" firstAttribute="leading" secondItem="J1c-fk-ius" secondAttribute="leading" constant="197" id="l86-qP-c4T"/>
+                            <constraint firstItem="BBF-Iy-ZRD" firstAttribute="trailing" secondItem="J1c-fk-ius" secondAttribute="trailing" id="puH-OM-ghx"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XGF-ja-F64"/>
+                                <exclude reference="0fJ-IK-0Cj"/>
+                                <exclude reference="1wp-Jl-8h8"/>
+                                <exclude reference="Isk-G8-BnY"/>
+                                <exclude reference="eNQ-Je-k4R"/>
+                                <exclude reference="l86-qP-c4T"/>
+                                <exclude reference="puH-OM-ghx"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="0fJ-IK-0Cj"/>
+                                <include reference="1wp-Jl-8h8"/>
+                                <include reference="eNQ-Je-k4R"/>
+                                <include reference="l86-qP-c4T"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="XGF-ja-F64"/>
+                                <include reference="Isk-G8-BnY"/>
+                                <include reference="puH-OM-ghx"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Word" id="8Jh-s1-4NF"/>
+                    <connections>
+                        <outlet property="picker" destination="BBF-Iy-ZRD" id="nHg-ql-a8K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iba-JS-a1B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1168.1159420289855" y="583.92857142857144"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="a30-nC-QWi">
+            <objects>
+                <viewController id="UPU-qf-8Ju" customClass="ViewController" customModule="AdvMadLab1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gXF-TO-3mO">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WjI-bE-x4t">
+                                <rect key="frame" x="391" y="192" width="114" height="30"/>
+                                <state key="normal" title="Go to instagram!"/>
+                                <connections>
+                                    <action selector="instagramButton:" destination="UPU-qf-8Ju" eventType="touchUpInside" id="mnJ-cn-4ng"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kNA-Xf-vMY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="kNA-Xf-vMY" firstAttribute="trailing" secondItem="WjI-bE-x4t" secondAttribute="trailing" constant="347" id="BjT-HP-pBq"/>
+                            <constraint firstItem="WjI-bE-x4t" firstAttribute="leading" secondItem="kNA-Xf-vMY" secondAttribute="leading" constant="347" id="W5P-g9-aVZ"/>
+                            <constraint firstItem="kNA-Xf-vMY" firstAttribute="bottom" secondItem="WjI-bE-x4t" secondAttribute="bottom" constant="122" id="dtb-Rd-qIo"/>
+                            <constraint firstItem="WjI-bE-x4t" firstAttribute="centerX" secondItem="gXF-TO-3mO" secondAttribute="centerX" id="g6d-bv-ssb"/>
+                            <constraint firstItem="WjI-bE-x4t" firstAttribute="centerY" secondItem="gXF-TO-3mO" secondAttribute="centerY" id="hzr-d5-vpi"/>
+                            <constraint firstItem="WjI-bE-x4t" firstAttribute="top" secondItem="kNA-Xf-vMY" secondAttribute="top" constant="192" id="juO-DG-Jz0"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BjT-HP-pBq"/>
+                                <exclude reference="dtb-Rd-qIo"/>
+                                <exclude reference="W5P-g9-aVZ"/>
+                                <exclude reference="g6d-bv-ssb"/>
+                                <exclude reference="hzr-d5-vpi"/>
+                                <exclude reference="juO-DG-Jz0"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="BjT-HP-pBq"/>
+                                <include reference="dtb-Rd-qIo"/>
+                                <include reference="W5P-g9-aVZ"/>
+                                <include reference="juO-DG-Jz0"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="g6d-bv-ssb"/>
+                                <include reference="hzr-d5-vpi"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" id="Vgp-du-elf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MVz-18-aAH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1168" y="1229"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="b1S-C7-R6i">
+            <objects>
+                <tabBarController id="y92-Y7-3gc" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uNK-nd-pIx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="UPU-qf-8Ju" kind="relationship" relationship="viewControllers" id="avp-jX-CsX"/>
+                        <segue destination="jMW-mM-pzK" kind="relationship" relationship="viewControllers" id="FpN-9D-zLJ"/>
+                        <segue destination="AJ4-mF-HgL" kind="relationship" relationship="viewControllers" id="i0A-oS-5QG"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xWz-jp-m7L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1168" y="1229"/>
+        </scene>
+        <!--Color-->
+        <scene sceneID="dcO-4S-40u">
+            <objects>
+                <viewController id="AJ4-mF-HgL" customClass="ColorViewController" customModule="AdvMadLab1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GVi-fh-kxF">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="U7p-hF-lfa">
+                                <rect key="frame" x="241" y="99" width="414" height="216"/>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kLm-BC-XrD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="trailing" secondItem="kLm-BC-XrD" secondAttribute="trailing" id="7vX-Yo-99g"/>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="leading" secondItem="kLm-BC-XrD" secondAttribute="leading" id="APt-qU-WcF"/>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="leading" secondItem="kLm-BC-XrD" secondAttribute="leading" constant="197" id="NAm-wG-LY3"/>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="top" secondItem="kLm-BC-XrD" secondAttribute="top" constant="99" id="Pi9-G7-ITn"/>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="top" secondItem="kLm-BC-XrD" secondAttribute="top" constant="291" id="bTb-vK-Bez"/>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="centerY" secondItem="GVi-fh-kxF" secondAttribute="centerY" id="sF3-Mb-446"/>
+                            <constraint firstItem="U7p-hF-lfa" firstAttribute="centerX" secondItem="GVi-fh-kxF" secondAttribute="centerX" id="vpE-Yn-pTg"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7vX-Yo-99g"/>
+                                <exclude reference="APt-qU-WcF"/>
+                                <exclude reference="NAm-wG-LY3"/>
+                                <exclude reference="Pi9-G7-ITn"/>
+                                <exclude reference="bTb-vK-Bez"/>
+                                <exclude reference="sF3-Mb-446"/>
+                                <exclude reference="vpE-Yn-pTg"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="NAm-wG-LY3"/>
+                                <include reference="Pi9-G7-ITn"/>
+                                <include reference="sF3-Mb-446"/>
+                                <include reference="vpE-Yn-pTg"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="7vX-Yo-99g"/>
+                                <include reference="APt-qU-WcF"/>
+                                <include reference="bTb-vK-Bez"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Color" id="09x-cX-Ngg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nlp-86-IDb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1169" y="1991"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
