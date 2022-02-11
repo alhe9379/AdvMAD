@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <dict>
+        <key>word</key>
+        <string>happy</string>
+        <key>synonyms</key>
+        <array>
+            <string>joyful</string>
+            <string>excited</string>
+            <string>hopeful</string>
+        </array>
+    </dict>
+    <dict>
+        <key>word</key>
+        <string>sad</string>
+        <key>synonyms</key>
+        <array>
+            <string>melancholy</string>
+            <string>gloomy</string>
+            <string>upset</string>
+        </array>
+    </dict>
+    <dict>
+        <key>word</key>
+        <string>cool</string>
+        <key>synonyms</key>
+        <array>
+            <string>epic</string>
+            <string>radical</string>
+            <string>awesome</string>
+        </array>
+    </dict>
+</array>
+</plist>
