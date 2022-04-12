@@ -8,4 +8,8 @@ public class Tools {
         double angle2 = Math.atan2(l2y1 - l2y2, l2x1 - l2x2);
         return angle1-angle2;
     }
+
+    public static int xyToInt(int x, int y, int width, int height){
+        return (y * width) + x;
+    }
 }

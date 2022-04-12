@@ -15,11 +15,13 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+//public class GameView extends SurfaceView {
 public class GameView extends View {
     Tools tools;
     Bitmap background;
@@ -60,7 +62,14 @@ public class GameView extends View {
         runnable = new Runnable(){
             @Override
             public void run() {
-                invalidate();
+
+                // refreshes ENTIRE canvas... aka bad for performance :(
+                // https://stackoverflow.com/questions/21027199/am-i-invalidating-the-entire-screen-on-every-call
+                // "Q: How does the system know, what piece of code will "only" redraw the dirty area?
+                //  A: Canvas::getClipBounds will give you a dirty rect, which you should draw something on."
+                invalidate( (int)ballX - 100,(int)ballY - 100, (int)ballX + 100, (int)ballY + 100);
+                //invalidate();
+
             }
         };
 
@@ -129,21 +138,28 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawBitmap(background, null, rect, null);
+        //canvas.drawBitmap(background, null, rect, null);
 
         //Log.i("four", String.valueOf(blockPixels.size()));
-        for(int i = 0; i < blockPixels.size(); i++){
-            if(!blockPixels.get(i).isDestroyed) {
-                canvas.drawPoint(blockPixels.get(i).x, blockPixels.get(i).y, blocks.get( blockPixels.get(i).blockId ).paint);
+        //if(!ballIsFlying) {
+        //https://blog.danlew.net/2015/10/20/using-hardware-layers-to-improve-animation-performance/
+        //https://stackoverflow.com/questions/2423327/android-view-ondraw-always-has-a-clean-canvas
+        //https://developer.android.com/reference/android/view/SurfaceView
+        //https://stackoverflow.com/questions/1243433/difference-between-surfaceview-and-view
+        //https://tutorialwing.com/android-surfaceview-tutorial-with-example/
+        for (int i = 0; i < blockPixels.size(); i++) {
+            if (!blockPixels.get(i).isDestroyed) {
+                canvas.drawPoint(blockPixels.get(i).x, blockPixels.get(i).y, blocks.get(blockPixels.get(i).blockId).paint);
             }
 
             //(x - center_x)² + (y - center_y)² < radius²
             //https://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
-            if( !blockPixels.get(i).isDestroyed && (Math.pow((blockPixels.get(i).x - ballX), 2) + Math.pow((blockPixels.get(i).y - ballY), 2)) < Math.pow(.5*ball.getWidth(), 2) ){
+            if (!blockPixels.get(i).isDestroyed && (Math.pow((blockPixels.get(i).x - ballX), 2) + Math.pow((blockPixels.get(i).y - ballY), 2)) < Math.pow(.5 * ball.getWidth(), 2)) {
                 blockPixels.get(i).isDestroyed = true;
                 ballVelocity -= blockPixels.get(i).armor;
             }
         }
+        //}
 
         if(ballIsFlying) {
             ballX = fX - tempX;
