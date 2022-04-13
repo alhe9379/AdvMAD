@@ -12,4 +12,16 @@ public class Tools {
     public static int xyToInt(int x, int y, int width, int height){
         return (y * width) + x;
     }
+
+//    public static int intToXy(int i, int width, int height) {
+//        int y = (i/width)
+//    }
+
+//    public static int phoneXtoCartesianX(){
+//
+//    }
+
+    public static float phoneYtoCartesianY(float y){
+        return -y;
+    }
 }

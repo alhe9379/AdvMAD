@@ -29,6 +29,7 @@ import java.util.Random;
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     Tools tools;
     static int deviceWidth, deviceHeight;
+    int canvasWidth, canvasHeight;
     final long UPDATE_MILLIS = 30;
     //ArrayList<BasicBall> basicBall;
     ArrayList<Block> blocks;
@@ -112,12 +113,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         //blockPixels = new HashMap<Pair<Integer, Integer>, BlockPixel>();
         blockPixels = new HashMap<Integer, BlockPixel>();
 
-        Block block1 = new Block(20, 700, 250, 0, "green", greenPaint);
-        Block block2 = new Block(320, 900, 250, 1, "red", redPaint);
-        Block block3 = new Block(620, 1100, 250, 2, "black", blackPaint);
-        blocks.add(block1);
-        blocks.add(block2);
-        blocks.add(block3);
+        Block gBlock1 = new Block(deviceWidth/2 - 75, 300, 150, 0, "green", greenPaint);
+        Block rBlock1 = new Block(30, 300, 150, 1, "red", redPaint);
+        Block rBlock2 = new Block(900, 300, 150, 1, "red", redPaint);
+        Block bBlock1 = new Block(deviceWidth/2 - 100, 1100, 200, 2, "black", blackPaint);
+        blocks.add(gBlock1);
+        blocks.add(rBlock1);
+        blocks.add(rBlock2);
+        blocks.add(bBlock1);
+
+//        Block block1 = new Block(0, 0, 1000, 0, "green", greenPaint);
+//        blocks.add(block1);
+//        Block block2 = new Block(0, 1010, 1000, 0, "green", greenPaint);
+//        blocks.add(block2);
 
         ballShrinkI = 0;
 
@@ -158,7 +166,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         //https://stackoverflow.com/questions/5663671/creating-an-empty-bitmap-and-drawing-though-canvas-in-android
-        screenRect = new Rect(0,0,this.getWidth(),this.getHeight());
+        canvasWidth = this.getWidth();
+        canvasHeight = this.getHeight();
+        screenRect = new Rect(0,0,canvasWidth,canvasHeight);
         Bitmap.Config conf = Bitmap.Config.ARGB_8888;
         stagingBitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), conf);
         ballStagingBitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), conf);
@@ -218,7 +228,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 fY = event.getY();
                 ballX = event.getX();
                 ballY = event.getY();
-                angleOfFlight = (float) tools.getAngle(0, 0, 2, 0, downX, downY, fX, fY);
+                angleOfFlight = (float)Tools.getAngle(0, 0, 2, 0, downX, Tools.phoneYtoCartesianY(downY), fX, Tools.phoneYtoCartesianY(fY));
                 break;
         }
         return true;
@@ -267,7 +277,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                             if (!bp.isDestroyed) {
                                 //Log.i("WILL DESTROY", "yup");
                                 bp.isDestroyed = true;
-                                ballVelocity -= bp.armor;
+                                //ballVelocity -= bp.armor;
+                                ballVelocity = ballVelocity * (1/bp.armor);
                             }
                         }
                     }
@@ -282,19 +293,34 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
             ballX = fX - tempX;
             ballY = fY - tempY;
-            tempX += ballVelocity * -Math.cos(angleOfFlight - Math.PI); //https://www.youtube.com/watch?v=eXzGPBYQBnk
-            tempY += ballVelocity * Math.sin(angleOfFlight - Math.PI);
-            if(ballX - ball.getWidth()/2 < 0 || ballX + ball.getWidth()/2 > deviceWidth || ballY + ball.getHeight()/2 > deviceHeight || ballY - ball.getHeight()/2 < 0){
-//                tempX += ballVelocity * -Math.cos((angleOfFlight - Math.PI) - Math.PI + 2*angleOfFlight); //https://www.youtube.com/watch?v=eXzGPBYQBnk
-//                tempY += ballVelocity * Math.sin((angleOfFlight - Math.PI) - Math.PI + 2*angleOfFlight);
 
-                tempX += ballVelocity * -Math.cos((angleOfFlight - Math.PI) + Math.PI - angleOfFlight); //https://www.youtube.com/watch?v=eXzGPBYQBnk
-                tempY += ballVelocity * Math.sin((angleOfFlight - Math.PI) - Math.PI + angleOfFlight);
+            //https://www.youtube.com/watch?v=eXzGPBYQBnk
+            tempX += ballVelocity * Math.cos(angleOfFlight);
+            tempY += ballVelocity * Math.sin(angleOfFlight);
+            if(ballX < 0 || ballX > canvasWidth){ //what about corners?
+                angleOfFlight = (float)Tools.getAngle(0, 0, 2, 0, prevX, Tools.phoneYtoCartesianY(-prevY), ballX, Tools.phoneYtoCartesianY(-ballY));
+                tempX += 2*ballVelocity * Math.cos(angleOfFlight); //https://www.youtube.com/watch?v=eXzGPBYQBnk
+                tempY += ballVelocity * Math.sin(angleOfFlight);
             }
 
-            if(ballVelocity > 0){ ballVelocity--; }
-            if(ballVelocity  <= 0) {
-                ballVelocity = ballVelocity/100;
+            if(ballY < 0 || ballY > canvasHeight){ //what about corners?
+                angleOfFlight = (float)Tools.getAngle(0, 0, 2, 0, -prevX, Tools.phoneYtoCartesianY(prevY), -ballX, Tools.phoneYtoCartesianY(ballY));
+                tempX += ballVelocity * Math.cos(angleOfFlight); //https://www.youtube.com/watch?v=eXzGPBYQBnk
+                tempY += 2*ballVelocity * Math.sin(angleOfFlight);
+            }
+
+            if(ballVelocity > 0){
+                ballVelocity = (float)(ballVelocity * 0.99);
+                //ballVelocity--;
+            }
+            if(ballVelocity  <= 5) {
+                //ballVelocity = (float)(ballVelocity * 0.95);
+                ballVelocity = 0;
+//                ballIsFlying = false;
+//                ballX = deviceWidth*.50f;
+//                ballY = deviceHeight*.75f;
+//                tempX = tempY = 0;
+                //blockStagingCanvas.drawCircle(ballX, ballY, ball.getWidth()/2,blackPaint);
                 ballShrinkI++;
                 if (ballShrinkI == basicBallShrink.length) {
                     ballX = deviceWidth*.50f;
