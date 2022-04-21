@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class GameThread extends Thread {
-    private int FPS = 30;
+    private int FPS = 38;
     private double avgFPS;
     private SurfaceHolder surfaceHolder;
     private GameSurfaceView gameSurfaceView;
@@ -39,6 +39,7 @@ public class GameThread extends Thread {
 
             try {
                 //this.sleep(waitTime);
+                Log.i("wait" , String.valueOf(waitTime));
                 sleep(waitTime);
             } catch (Exception e){
                 e.printStackTrace();

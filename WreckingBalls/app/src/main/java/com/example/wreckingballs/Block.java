@@ -31,6 +31,7 @@ public class Block {
         if(type == "green") { armor = (float)1.0001; }
         if(type == "red"){ armor = (float)1.0002; }
         if(type == "black") { armor = (float)1.0006; }
+        if(type == "yellow") { armor = (float).9999; }
 
     }
 
