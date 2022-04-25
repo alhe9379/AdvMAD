@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Lab9</string>
+    <string name="questionEditText">Question?</string>
+    <string name="editTextAnswer">Answer.</string>
+    <string name="saveDataStoreButton">Save</string>
+
+    <string name="fab_add">Add</string>
+    <string name="addItem">Add Item</string>
+    <string name="add">Add</string>
+    <string name="action">Action</string>
+    <string name="itemAdded">Item Added</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="deleteItem">Item Deleted</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>
