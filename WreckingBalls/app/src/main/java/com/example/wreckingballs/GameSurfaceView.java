@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
-    Tools tools;
+    LevelSelector levelSelector;
     int canvasWidth, canvasHeight;
     ArrayList<Block> blocks;
     HashMap< Integer, BlockPixel> blockPixels;
@@ -38,11 +38,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     float tempX, tempY;
     int score;
     Paint linePaint;
-    Paint greenPaint;
-    Paint redPaint;
-    Paint blackPaint;
-    Paint yellowPaint;
     Paint backgroundPaint;
+    Paint textPaint;
     Bitmap basicBallShrink[] = new Bitmap[7];
     int ballShrinkI;
 
@@ -58,24 +55,18 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private GameThread thread;
 
     public GameSurfaceView(Context context, AttributeSet attrs){
-        super(context);
+//    public GameSurfaceView(Context context){
+        super(context, attrs);
         Log.i("Constructor", "In GameSurfaceView constructor");
-
-        tools = new Tools();
-
         linePaint = new Paint();
         linePaint.setColor(Color.RED);
         linePaint.setStrokeWidth(8);
         backgroundPaint = new Paint();
         backgroundPaint.setColor(Color.LTGRAY);
-        greenPaint = new Paint();
-        greenPaint.setColor(Color.GREEN);
-        redPaint = new Paint();
-        redPaint.setColor(Color.RED);
-        yellowPaint = new Paint();
-        yellowPaint.setColor(Color.YELLOW);
-        blackPaint = new Paint();
-        blackPaint.setColor(Color.DKGRAY);
+        textPaint = new Paint();
+        textPaint.setColor(Color.rgb(255,153,153));
+        textPaint.setTextSize(60);
+        textPaint.setFakeBoldText(true);
 
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.bb30);
         prevX = ballX;
@@ -107,12 +98,17 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Log.i("Constructor", "GameSurfaceView(context, attr, defStyle)");
     }
 
+//    public GameSurfaceView(Context context, AttributeSet attrs){
+//        super(context, attrs);
+//    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
         //https://stackoverflow.com/questions/5663671/creating-an-empty-bitmap-and-drawing-though-canvas-in-android
         canvasWidth = this.getWidth();
         canvasHeight = this.getHeight();
+        levelSelector = new LevelSelector(canvasWidth, canvasHeight);
 
         validOriginClick = false;
         originBallX = canvasWidth*.50f;
@@ -131,19 +127,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         stagingCanvas = new Canvas(stagingBitmap);
         blockStagingCanvas = new Canvas(blockStagingBitmap);
 
-        Block yBlock1 = new Block(   (int)(canvasWidth - 0.95 * canvasWidth), (int)(canvasHeight * 0.60), 175, 2, "yellow", yellowPaint);
-        Block yBlock2 = new Block(canvasWidth/2 - 88,                      (int)(canvasHeight * 0.50), 175, 2, "yellow", yellowPaint);
-        Block gBlock1 = new Block(canvasWidth/2 - 75,                      (int)(canvasHeight * 0.20), 150, 0, "green", greenPaint);
-        Block rBlock1 = new Block(   (int)(canvasWidth - 0.95 * canvasWidth), (int)(canvasHeight * 0.20), 150, 1, "red", redPaint);
-        Block rBlock2 = new Block(   (int) (canvasWidth * 0.95 - 150),        (int)(canvasHeight * 0.20), 150, 1, "red", redPaint);
-        Block bBlock1 = new Block(canvasWidth/2 - 100,                     (int)(canvasHeight * 0.60), 200, 2, "black", blackPaint);
-        blocks.add(yBlock2);
-        blocks.add(gBlock1);
-        blocks.add(rBlock1);
-        blocks.add(rBlock2);
-        blocks.add(bBlock1);
-        blocks.add(yBlock1);
-
+        blocks = levelSelector.getLevel(1);
         Block curBlock;
         for(int bI = 0; bI < blocks.size(); bI++){
             curBlock = blocks.get(bI);
@@ -160,11 +144,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
 
         initializeStagingBitmap();
-
         thread.setRunning(true);
         thread.start();
 
-        //tryDrawing(holder);
     }
 
     @Override
@@ -337,6 +319,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         stagingCanvas.drawBitmap(ballStagingBitmap, null, screenRect, null);
         canvas.drawBitmap(stagingBitmap, null, screenRect, null);
 
+        //https://stackoverflow.com/questions/12166476/android-canvas-drawtext-set-font-size-from-width
+        canvas.drawText(String.valueOf(score), 10, 60, textPaint);
     }
 
     public void update() {
